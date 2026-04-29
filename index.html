@@ -143,20 +143,27 @@
     </div>
   </div>
   <div class="contact-right">
-    <div class="form-card">
+    <div class="form-card" id="form-view">
       <h3>Request a Free Quote</h3>
-      <div class="form-row"><label>Name<input type="text" id="f-name" placeholder="Your name" autocomplete="name"></label></div>
-      <div class="form-row"><label>Phone<input type="tel" id="f-phone" placeholder="(256) 555-0123" autocomplete="tel"></label></div>
-      <div class="form-row"><label>Email<input type="email" id="f-email" placeholder="you@email.com" autocomplete="email"></label></div>
+      <div class="form-row"><label>Name<input type="text" id="f-name" placeholder="Your name" autocomplete="name" required></label></div>
+      <div class="form-row"><label>Phone<input type="tel" id="f-phone" placeholder="(256) 555-0123" autocomplete="tel" required></label></div>
+      <div class="form-row"><label>Email<input type="email" id="f-email" placeholder="you@email.com" autocomplete="email" required></label></div>
       <div class="form-row"><label>City / Zip<input type="text" id="f-loc" placeholder="Where's the property?"></label></div>
       <div class="form-row"><label>Tell us about the water<textarea id="f-msg" rows="4" placeholder="What's happening? Where? When did it start?"></textarea></label></div>
       <!-- Honeypot -->
       <div class="hp-field" aria-hidden="true">
-        <label>Website<input type="text" id="f-website" name="website" tabindex="-1" autocomplete="off"></label>
+        <label for="f-website">Website (leave this blank)</label>
+        <input type="text" id="f-website" name="website" tabindex="-1" autocomplete="off">
       </div>
       <button type="button" class="btn btn-primary btn-full" id="form-submit">Send Request</button>
       <div class="form-status" id="form-status" role="status" aria-live="polite"></div>
       <p class="form-note">We'll get back to you within 1 business day.</p>
+    </div>
+    <div class="form-card form-success" id="form-success" style="display: none;">
+      <div class="success-icon">✓</div>
+      <h3>Got it — we'll be in touch.</h3>
+      <p>Thanks for reaching out. Denny or someone from the crew will get back to you within 1 business day to walk through your water issue and schedule a free on-site quote.</p>
+      <p class="form-note">Need to reach us sooner? Call <a href="tel:+12568082100">256-808-2100</a>.</p>
     </div>
   </div>
 </div></div></section>
