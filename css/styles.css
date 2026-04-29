@@ -28,10 +28,8 @@
 html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 body {
   font-family: var(--sans);
-  font-size: 16px;
-  line-height: 1.6;
-  color: var(--ink);
-  background: var(--white);
+  font-size: 16px; line-height: 1.6;
+  color: var(--ink); background: var(--white);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
@@ -43,11 +41,9 @@ em { font-style: italic; font-family: var(--serif); font-weight: 400; }
 .container { max-width: var(--container); margin: 0 auto; padding: 0 var(--gutter); }
 
 .section-title {
-  font-family: var(--serif);
-  font-weight: 500;
+  font-family: var(--serif); font-weight: 500;
   font-size: clamp(2rem, 4.5vw, 3.5rem);
-  line-height: 1.05;
-  letter-spacing: -0.02em;
+  line-height: 1.05; letter-spacing: -0.02em;
   color: var(--ink);
 }
 .section-title.light { color: var(--white); }
@@ -57,8 +53,7 @@ em { font-style: italic; font-family: var(--serif); font-weight: 400; }
   font-family: var(--sans);
   font-size: 0.75rem; font-weight: 500;
   letter-spacing: 0.18em; text-transform: uppercase;
-  color: var(--gray-500);
-  margin-bottom: 24px;
+  color: var(--gray-500); margin-bottom: 24px;
 }
 .section-label.light { color: rgba(255,255,255,0.6); }
 .section-label .num {
@@ -508,6 +503,22 @@ a.contact-method:hover { padding-left: 12px; }
 
 #form-submit { margin-top: 8px; }
 #form-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+.form-success { text-align: center; }
+.form-success .success-icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  background: #E8F5E9; color: #1B5E20;
+  font-size: 1.8rem; font-weight: 700;
+  margin: 0 auto 20px;
+}
+.form-success h3 { margin-bottom: 16px; }
+.form-success p {
+  font-size: 0.95rem; line-height: 1.5;
+  color: var(--gray-700); margin-bottom: 16px;
+}
+.form-success a { color: var(--accent); font-weight: 600; }
 
 .form-note {
   margin-top: 16px;
