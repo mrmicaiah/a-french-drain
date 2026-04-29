@@ -11,7 +11,6 @@ if (menuToggle && navLinks) {
   menuToggle.addEventListener('click', () => {
     navLinks.classList.toggle('open');
   });
-
   navLinks.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => {
       navLinks.classList.remove('open');
@@ -27,11 +26,15 @@ if (nav) {
   });
 }
 
-// Contact form submission via Cloudflare Worker
-const CONTACT_ENDPOINT = 'https://afrenchdrain-contact.micaiah-tasks.workers.dev';
+// Contact form — submits to shared UP infrastructure worker
+const SUBSCRIBE_ENDPOINT = 'https://email-bot-server.micaiah-tasks.workers.dev/api/subscribe';
+const COURIER_LIST = 'a-french-drain-leads';
+const FORM_LOAD_TIME = Date.now();
 
 const formSubmit = document.getElementById('form-submit');
 const formStatus = document.getElementById('form-status');
+const formView = document.getElementById('form-view');
+const formSuccess = document.getElementById('form-success');
 
 function showStatus(type, message) {
   if (!formStatus) return;
@@ -45,6 +48,11 @@ function clearStatus() {
   formStatus.textContent = '';
 }
 
+function showSuccess() {
+  if (formView) formView.style.display = 'none';
+  if (formSuccess) formSuccess.style.display = 'block';
+}
+
 if (formSubmit) {
   formSubmit.addEventListener('click', async () => {
     clearStatus();
@@ -54,14 +62,36 @@ if (formSubmit) {
     const email = document.getElementById('f-email').value.trim();
     const location = document.getElementById('f-loc').value.trim();
     const message = document.getElementById('f-msg').value.trim();
-    const website = document.getElementById('f-website').value.trim(); // honeypot
+    const honeypot = document.getElementById('f-website').value;
 
+    // Honeypot check #1 — hidden field must be empty
+    if (honeypot) {
+      showSuccess();
+      return;
+    }
+
+    // Honeypot check #2 — humans take longer than 3 seconds to fill a form
+    const elapsed = Date.now() - FORM_LOAD_TIME;
+    if (elapsed < 3000) {
+      showSuccess();
+      return;
+    }
+
+    // Validation
     if (!name) {
       showStatus('error', 'Please enter your name.');
       return;
     }
-    if (!phone && !email) {
-      showStatus('error', 'Please provide a phone number or email so we can reach you.');
+    if (!phone) {
+      showStatus('error', 'Please enter your phone number.');
+      return;
+    }
+    if (!email) {
+      showStatus('error', 'Please enter your email.');
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      showStatus('error', 'Please enter a valid email address.');
       return;
     }
 
@@ -69,29 +99,38 @@ if (formSubmit) {
     const originalLabel = formSubmit.textContent;
     formSubmit.textContent = 'Sending…';
 
+    const payload = {
+      email,
+      name,
+      list: COURIER_LIST,
+      source: 'afrenchdrain.com',
+      funnel: 'homepage-quote-form',
+      metadata: {
+        phone,
+        location,
+        message,
+        time_to_fill_ms: elapsed,
+      },
+    };
+
     try {
-      const res = await fetch(CONTACT_ENDPOINT, {
+      const res = await fetch(SUBSCRIBE_ENDPOINT, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, phone, email, location, message, website }),
+        body: JSON.stringify(payload),
       });
 
       const data = await res.json().catch(() => ({}));
 
-      if (res.ok && data.success) {
-        showStatus('success', "Thanks! We got it. We'll be in touch within 1 business day.");
-        ['f-name', 'f-phone', 'f-email', 'f-loc', 'f-msg', 'f-website'].forEach(id => {
-          const el = document.getElementById(id);
-          if (el) el.value = '';
-        });
-        formSubmit.textContent = 'Sent ✓';
+      if (res.ok) {
+        showSuccess();
       } else {
         showStatus('error', data.error || 'Something went wrong. Please call 256-808-2100.');
         formSubmit.disabled = false;
         formSubmit.textContent = originalLabel;
       }
     } catch (err) {
-      showStatus('error', 'Network error. Please call 256-808-2100.');
+      showStatus('error', 'Connection issue. Please call 256-808-2100.');
       formSubmit.disabled = false;
       formSubmit.textContent = originalLabel;
     }
