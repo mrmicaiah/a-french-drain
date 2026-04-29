@@ -34,7 +34,7 @@ if (formSubmit) {
     }
 
     const body = `Name: ${name}%0D%0APhone: ${phone}%0D%0AEmail: ${email}%0D%0ALocation: ${loc}%0D%0A%0D%0A${msg}`;
-    window.location.href = `mailto:hello@afrenchdrain.com?subject=Free Quote Request — ${encodeURIComponent(name)}&body=${body}`;
+    window.location.href = `mailto:dennygutter@gmail.com?subject=Free Quote Request — ${encodeURIComponent(name)}&body=${body}`;
   });
 }
 
