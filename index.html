@@ -15,7 +15,7 @@
 </head>
 <body>
 
-<!-- ============ NAV ============ -->
+<!-- NAV -->
 <header class="nav" id="nav">
   <div class="nav-inner">
     <a href="#top" class="nav-brand">
@@ -138,19 +138,24 @@
     <p class="contact-intro">Free quote. No pressure. We'll come out, walk the property, and tell you what it'll take to fix.</p>
     <div class="contact-methods">
       <a href="tel:+12568082100" class="contact-method"><span class="cm-label">Call</span><span class="cm-value">256-808-2100</span></a>
-      <a href="mailto:dennygutter@gmail.com" class="contact-method"><span class="cm-label">Email</span><span class="cm-value">dennygutter@gmail.com</span></a>
+      <div class="contact-method"><span class="cm-label">Response Time</span><span class="cm-value">Within 1 business day</span></div>
       <div class="contact-method"><span class="cm-label">Service Area</span><span class="cm-value">AL · FL · MS · GA · TN</span></div>
     </div>
   </div>
   <div class="contact-right">
     <div class="form-card">
       <h3>Request a Free Quote</h3>
-      <div class="form-row"><label>Name<input type="text" id="f-name" placeholder="Your name"></label></div>
-      <div class="form-row"><label>Phone<input type="tel" id="f-phone" placeholder="(256) 555-0123"></label></div>
-      <div class="form-row"><label>Email<input type="email" id="f-email" placeholder="you@email.com"></label></div>
+      <div class="form-row"><label>Name<input type="text" id="f-name" placeholder="Your name" autocomplete="name"></label></div>
+      <div class="form-row"><label>Phone<input type="tel" id="f-phone" placeholder="(256) 555-0123" autocomplete="tel"></label></div>
+      <div class="form-row"><label>Email<input type="email" id="f-email" placeholder="you@email.com" autocomplete="email"></label></div>
       <div class="form-row"><label>City / Zip<input type="text" id="f-loc" placeholder="Where's the property?"></label></div>
       <div class="form-row"><label>Tell us about the water<textarea id="f-msg" rows="4" placeholder="What's happening? Where? When did it start?"></textarea></label></div>
+      <!-- Honeypot -->
+      <div class="hp-field" aria-hidden="true">
+        <label>Website<input type="text" id="f-website" name="website" tabindex="-1" autocomplete="off"></label>
+      </div>
       <button type="button" class="btn btn-primary btn-full" id="form-submit">Send Request</button>
+      <div class="form-status" id="form-status" role="status" aria-live="polite"></div>
       <p class="form-note">We'll get back to you within 1 business day.</p>
     </div>
   </div>
@@ -162,7 +167,7 @@
     <div class="footer-brand"><div class="footer-logo"><span class="brand-mark">A.</span><span class="brand-name">French Drain</span></div><p>Drainage built right. Across the Southeast.</p></div>
     <div class="footer-col"><h5>Services</h5><a href="#french-drains">French Drains</a><a href="#downspout-drains">Downspout Drains</a><a href="#surface-drains">Surface Drains</a><a href="#channel-drains">Channel Drains</a><a href="#sump-pumps">Sump Pumps</a><a href="#grading">Grading</a></div>
     <div class="footer-col"><h5>Service Area</h5><span>Alabama</span><span>Florida</span><span>Mississippi</span><span>Georgia</span><span>Tennessee</span></div>
-    <div class="footer-col"><h5>Contact</h5><a href="tel:+12568082100">256-808-2100</a><a href="mailto:dennygutter@gmail.com">dennygutter@gmail.com</a></div>
+    <div class="footer-col"><h5>Contact</h5><a href="tel:+12568082100">256-808-2100</a><a href="#contact">Request a Quote</a></div>
   </div>
   <div class="footer-bottom"><span>© <span id="year"></span> A. French Drain. All rights reserved.</span><span>Built right. Built to last.</span></div>
 </div></footer>
